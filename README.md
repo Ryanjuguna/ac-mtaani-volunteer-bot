@@ -4,7 +4,7 @@ An intelligent, zero-cost task allocation and volunteer tracking bot designed fo
 
 ---
 
-## 🎯 The Core Philosophy: Zero-Friction Task Assignment
+##  The Core Philosophy: Zero-Friction Task Assignment
 
 Previous volunteer management systems (custom mobile apps, Notion pages, standalone websites) suffered from **adoption drop-off**. Volunteers do not want to install extra apps or remember extra credentials. 
 
@@ -53,7 +53,7 @@ uvicorn app.main:app --port 8000 --reload
 
 ### 2. Open the Interactive Fail-Safe Web Simulator
 Navigate in your browser to:
-👉 **`http://localhost:8000/`**
+ **`http://localhost:8000/`**
 
 The Web Simulator provides a side-by-side view:
 - **Left Panel (Group Chat)**: Type coordinator messages or click one of the quick test scenario chips.
@@ -62,7 +62,7 @@ The Web Simulator provides a side-by-side view:
 
 ---
 
-## 🧪 Automated Test Suite
+## Automated Test Suite
 
 Run the end-to-end automated tests with:
 ```bash
@@ -71,7 +71,7 @@ python -m unittest tests/test_flow.py
 
 ---
 
-## ⚙️ Configuration (`.env`)
+## Configuration (`.env`)
 
 Copy `.env.example` to `.env`:
 ```bash
@@ -89,25 +89,3 @@ cp .env.example .env
 | `GOOGLE_SHEET_ID` | Target Google Sheet spreadsheet ID | `""` |
 
 ---
-
-## 📱 Pre-Seeded Volunteer Directory
-
-Derived from real American Corner Mtaani operational records:
-- **Faith Wanjiru** (`+254712573126`) — *MakerSpace & 3D Printing*
-- **Brian Kithusi** (`+254742146350`) — *Barbah Games & E-Sports*
-- **Derrick Omwanza** (`+254762406254`) — *Tech Program & VR/AI*
-- **Nicole Atieno** (`+254112609680`) — *Digital Marketing & Communications*
-- **Kadimane Gloriah** (`+254757902786`) — *EducationUSA & Orientation*
-- **Delphine Nyambati** (`+254789814180`) — *Information Access & Front Desk*
-- **Juliet Atieno Kesitah** (`+254746701831`) — *Community Outreach (Matatusa)*
-- **Yvonne Nduta** (`+254702294268`) — *Creative Lab & Staging Change*
-
----
-
-## 🗓️ Showcase Plan for Monday
-
-1. **The Problem & Insight**: Explain the friction of third-party apps and the power of meeting volunteers on WhatsApp.
-2. **Natural Dialogue Demo**: Show how the Coordinator speaks normally using `@task @Faith ...`.
-3. **AI Structured Extraction**: Reveal the Gemini structured JSON schema that dissects natural phrases into actionable metadata.
-4. **Volunteer 1-Touch Reply**: Show the volunteer receiving the private DM and accepting with a single tap (`1`).
-5. **Zero-Cost Sustainability**: Highlight that the entire stack runs on free-tier infrastructure ($0/month).
