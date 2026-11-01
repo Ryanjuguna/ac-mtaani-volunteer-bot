@@ -23,7 +23,7 @@ The bot silently listens in the group, activates when `@task` is mentioned, and 
 
 ---
 
-## 🚀 Quick Start (Running the Demo)
+##  Quick Start (Running the Demo)
 
 ### 1. Install Dependencies
 ```bash
