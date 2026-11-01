@@ -1,0 +1,42 @@
+# Python bytecode & cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Environments
+.env
+*.env.local
+.venv/
+venv/
+env/
+ENV/
+
+# Credentials & Service Accounts (CRITICAL: Never commit secrets)
+credentials.json
+service_account.json
+token.json
+
+# Local Operational Databases
+*.db
+*.sqlite
+*.sqlite3
+data/tasks.db
+
+# Volunteer Personal Contact Info (Data Privacy Compliance)
+data/*.csv
+data/volunteers.json
+
+# IDE / Editor Files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS Artifacts
+.DS_Store
+Thumbs.db
+
+# Temporary & Test Logs
+*.log
+scratch/

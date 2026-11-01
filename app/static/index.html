@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>American Corner Mtaani - Volunteer Management Engine</title>
+  <link rel="stylesheet" href="/static/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Top Bar -->
+    <header class="top-nav">
+      <div class="brand">
+        <div class="badge-flag">🇺🇸 🇰🇪</div>
+        <div class="brand-text">
+          <h1>American Corner Mtaani</h1>
+          <span class="subtext">Volunteer Task Allocation & WhatsApp Automation Platform</span>
+        </div>
+      </div>
+      <div class="nav-metrics">
+        <div class="status-pill active">
+          <span class="dot"></span> Engine Online
+        </div>
+        <div class="status-pill zero-cost">
+          <span class="cost-tag">$0 Zero-Cost Stack</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main 3-Column Split -->
+    <main class="dashboard-grid">
+      
+      <!-- COLUMN 1: WhatsApp Group Simulator (Coordinator View) -->
+      <section class="panel group-panel">
+        <div class="panel-header">
+          <div class="header-info">
+            <span class="icon">👥</span>
+            <div>
+              <h2>AC Mtaani Volunteers Group</h2>
+              <p class="panel-sub">Coordinator Chat &middot; Trigger: <code>@task</code></p>
+            </div>
+          </div>
+          <span class="tag live-tag">Group Chat</span>
+        </div>
+
+        <div class="quick-prompts">
+          <span class="quick-label">⚡ Test Scenarios:</span>
+          <button class="chip" onclick="fillPrompt('@task @Ian coordinate volunteer orientation for the school visit this Thursday 10am')">
+            🤝 Ian: Volunteer Orientation
+          </button>
+          <button class="chip" onclick="fillPrompt('@task @Hannah ensure front desk sign-in tablets are setup by tomorrow 8am')">
+            📋 Hannah: Front Desk Setup
+          </button>
+          <button class="chip" onclick="fillPrompt('@task @Faith please check the Makerbot 3D printer wiring by tomorrow 3pm')">
+            🖨️ Faith: 3D Printer Wiring
+          </button>
+          <button class="chip" onclick="fillPrompt('@Brian @task organize the chess boards for Barbah Games this Saturday 10am')">
+            ♟️ Brian: Barbah Games Chess
+          </button>
+          <button class="chip" onclick="fillPrompt('@task @Derrick ensure all VR headsets are updated and charged before Friday 4pm')">
+            🥽 Derrick: VR Headsets
+          </button>
+          <button class="chip" onclick="fillPrompt('@Nicole @task draft the social media poster for the upcoming Open Day by Monday 12pm')">
+            📢 Nicole: Open Day Poster
+          </button>
+        </div>
+
+        <div class="chat-feed" id="groupChatFeed">
+          <div class="chat-bubble system">
+            <div class="bubble-content">
+              <strong>System:</strong> Bot listening for <code>@task</code> in group messages. Natural coordinator language supported!
+            </div>
+          </div>
+        </div>
+
+        <form class="chat-input-bar" id="groupMessageForm" onsubmit="sendCoordinatorMessage(event)">
+          <input 
+            type="text" 
+            id="coordinatorInput" 
+            placeholder="Type naturally with @task and @Name (e.g. @task @Faith ...)" 
+            autocomplete="off"
+            required 
+          />
+          <button type="submit" id="sendGroupBtn">
+            <span>Send</span> 🚀
+          </button>
+        </form>
+      </section>
+
+      <!-- COLUMN 2: Coordinator Central Dashboard & Sheets Mirror -->
+      <section class="panel operations-panel">
+        <div class="panel-header">
+          <div class="header-info">
+            <span class="icon">📊</span>
+            <div>
+              <h2>Coordinator Central Dashboard</h2>
+              <p class="panel-sub">Real-Time State Machine & Google Sheets Mirror</p>
+            </div>
+          </div>
+          <button class="refresh-btn" onclick="loadDashboard()">🔄 Refresh</button>
+        </div>
+
+        <!-- KPI Cards -->
+        <div class="kpi-row">
+          <div class="kpi-card">
+            <span class="kpi-title">Total Tasks</span>
+            <span class="kpi-val" id="kpiTotal">0</span>
+          </div>
+          <div class="kpi-card in-progress">
+            <span class="kpi-title">In Progress</span>
+            <span class="kpi-val" id="kpiProgress">0</span>
+          </div>
+          <div class="kpi-card completed">
+            <span class="kpi-title">Completed</span>
+            <span class="kpi-val" id="kpiCompleted">0</span>
+          </div>
+          <div class="kpi-card pending">
+            <span class="kpi-title">Dispatched / Sent</span>
+            <span class="kpi-val" id="kpiPending">0</span>
+          </div>
+        </div>
+
+        <!-- Live Task Table -->
+        <div class="table-container">
+          <div class="table-header-row">
+            <h3>Active Task Ledger</h3>
+            <span class="badge count-badge" id="taskCountBadge">0 tasks</span>
+          </div>
+          <div class="scroll-table">
+            <table class="task-table" id="taskTable">
+              <thead>
+                <tr>
+                  <th>Task ID</th>
+                  <th>Description</th>
+                  <th>Assignee</th>
+                  <th>Deadline</th>
+                  <th>Priority</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="taskTableBody">
+                <tr>
+                  <td colspan="6" class="empty-state">No tasks assigned yet. Use the group chat on the left to assign one!</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- AI Extraction Drawer -->
+        <div class="extraction-card">
+          <div class="extraction-header">
+            <h4>🧠 Gemini Structured Extraction Inspector</h4>
+            <span class="badge" id="extractionModel">gemini-2.5-flash</span>
+          </div>
+          <pre id="extractionJson" class="json-box">// Latest dissected task schema will appear here in real-time...</pre>
+        </div>
+      </section>
+
+      <!-- COLUMN 3: Volunteer Mobile Device Simulator -->
+      <section class="panel phone-panel">
+        <div class="panel-header">
+          <div class="header-info">
+            <span class="icon">📱</span>
+            <div>
+              <h2 id="phoneVolunteerName">Volunteer Phone Simulator</h2>
+              <p class="panel-sub" id="phoneVolunteerHandle">Select volunteer or assign a task</p>
+            </div>
+          </div>
+          <select id="volunteerSelect" onchange="switchVolunteerPhone(this.value)">
+            <!-- Populated via JS -->
+          </select>
+        </div>
+
+        <!-- Mobile Phone Container -->
+        <div class="phone-frame">
+          <div class="phone-notch"></div>
+          <div class="phone-wa-header">
+            <div class="wa-avatar">🤖</div>
+            <div class="wa-contact">
+              <span class="wa-name">Mtaani Bot</span>
+              <span class="wa-status">online</span>
+            </div>
+          </div>
+
+          <div class="phone-chat-feed" id="volunteerChatFeed">
+            <div class="wa-msg incoming">
+              👋 Welcome! When the coordinator assigns you a task in the group, it appears here privately.
+            </div>
+          </div>
+
+          <!-- Quick Action Buttons for Volunteer -->
+          <div class="volunteer-actions">
+            <span class="quick-title">1-Touch WhatsApp Reply:</span>
+            <div class="action-buttons">
+              <button class="btn-action accept" onclick="sendVolunteerReply('1')">1️⃣ Accept</button>
+              <button class="btn-action decline" onclick="sendVolunteerReply('2')">2️⃣ Unavailable</button>
+              <button class="btn-action complete" onclick="sendVolunteerReply('Done')">🎉 Mark Done</button>
+            </div>
+          </div>
+
+          <!-- Freeform Volunteer Input -->
+          <form class="phone-input-bar" onsubmit="submitVolunteerCustomReply(event)">
+            <input type="text" id="volunteerCustomInput" placeholder="Reply to Mtaani Bot..." required />
+            <button type="submit" class="wa-send-btn">➤</button>
+          </form>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

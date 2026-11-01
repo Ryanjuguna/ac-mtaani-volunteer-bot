@@ -1,0 +1,47 @@
+[
+  {
+    "id": "VOL-001",
+    "name": "Faith Wanjiru Kinyua",
+    "handle": "Faith",
+    "phone": "+254712573126",
+    "email": "faith.wanjiru@example.com",
+    "pillar": "MakerSpace & 3D Printing",
+    "status": "active"
+  },
+  {
+    "id": "VOL-002",
+    "name": "Ian Muigai",
+    "handle": "Ian",
+    "phone": "+254790000001",
+    "email": "ian.muigai@example.com",
+    "pillar": "STEM & Robotics",
+    "status": "active"
+  },
+  {
+    "id": "VOL-003",
+    "name": "Brian Kithusi",
+    "handle": "Brian",
+    "phone": "+254742146350",
+    "email": "brian.kithusi@example.com",
+    "pillar": "Barbah Games & E-Sports",
+    "status": "active"
+  },
+  {
+    "id": "VOL-004",
+    "name": "Hannah Wambui",
+    "handle": "Hannah",
+    "phone": "+254790000002",
+    "email": "hannah.wambui@example.com",
+    "pillar": "Orientation & Front Desk",
+    "status": "active"
+  },
+  {
+    "id": "VOL-005",
+    "name": "Ryan Njuguna Muchaba",
+    "handle": "Ryan",
+    "phone": "+254752901669",
+    "email": "ryanjuguna2k2@gmail.com",
+    "pillar": "Volunteerism & Tech Lead",
+    "status": "active"
+  }
+]
